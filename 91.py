@@ -44,8 +44,8 @@ print(Z)
 # попросить пользователя ее угадать
 N = ['самовар', 'весна', 'лето']
 r = random.choice(N)
-l = int(len(r))
-rr = random.randint(0, l)
+L = int(len(r))
+rr = random.randint(0, L)
 R = r[:rr]+"?"+r[rr+1:]
 e = r[int(rr)]
 print(R)
