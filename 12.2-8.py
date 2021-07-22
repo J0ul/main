@@ -2,19 +2,104 @@
 # элементов определяет, сколько отрицательных элементов располагается между его
 # максимальным и минимальным элементами.
 import random
+import statistics
 
 s = []
-for i in range(10):
-    s.append(random.randint(-100, 100))
-
+for i in range(20):
+    s.append(random.randint(-10, 100))
 print(s)
 
 a = s.index(min(s))
-b = s.index(max(s)) + 1
-ss = s[a:b]
-print(ss)
+b = s.index(max(s))
+if a < b:
+    ss = s[a + 1:b]
+else:
+    ss = s[b + 1:a]
 count = 0
 for i in ss:
-    if i < 0 and s.index(i) < b:
+    if i < 0:
         count += 1
-print(count)
+print("Отрицательных элементов между максимальным и минимальным элементами списка: ", count)
+
+# 12.3 Найти элемент, наиболее близкий к среднему значению всех элементов списка
+
+avg = statistics.mean(s)
+print("Среднее значение списка: ", avg)
+print("Элемент, наиболее близкий к среднему: ", min(s, key=lambda num: abs(num - avg)))
+
+# 12.4 Найти сумму простых чисел в списке
+pr = []
+for i in s:
+    for x in range(2, abs(i)):
+        if i % x == 0:
+            break
+        elif i == 0:
+            break
+    else:
+        pr.append(i)
+print("Сумма простых чисел из списка: ", sum(pr))
+
+# 12.5
+# Дан список целых чисел. Определить, есть ли в нем хотя бы одна пара соседних
+# нечетных чисел. В случае положительного ответа определить номера элементов первой из
+# таких пар.
+no = 0
+for i in s:
+    if i % 2 != 0 and s.index(i) != len(s) - 1 and s[s.index(i) + 1] % 2 != 0:
+        #        print(s.index(i), s.index(i)+1)
+        no += 1
+        break
+if no == 0:
+    print("Нет соседних нечетных чисел")
+
+# 12.6
+# Дан список целых чисел. Определить количество четных элементов и количество
+# элементов, оканчивающихся на цифру 5.
+chet = 0
+for i in s:
+    if i % 2 == 0 and i != 0:
+        chet += 1
+print("Четных чисел: ", chet)
+fif = 0
+fif_split = []
+for i in s:
+    fif_split = list(str(i))
+    if int(fif_split[-1]) == 5:
+        fif += 1
+print("Чисел, оканчивающихся на 5: ", fif)
+
+# 12.7
+# Задан список из целых чисел. Определить процентное содержание элементов,
+# превышающих среднеарифметическое всех элементов списка.
+avg = statistics.mean(s)
+cnt = 0
+for i in s:
+    if i > avg:
+        cnt += 1
+print("Элементов, превышающих среднеарифметическое: ", (cnt / len(s)) * 100, "%")
+
+# 12.8
+# Задан список из целых чисел. Определить количество участков списка, на котором
+# элементы монотонно возрастают (каждое следующее число больше предыдущего).
+mono = 0
+for i in s:
+    if s.index(i) < len(s) - 2 and s[s.index(i) + 1] > i and s[s.index(i) + 2] < s[s.index(i) + 1]:
+        mono += 1
+    elif s.index(i) < len(s) - 1 and s[s.index(i) + 1] > i and s.index(i) + 1 == len(s) - 1:
+        mono += 1
+
+print("Количество участков списка, на котором элементы монотонно возрастают: ", mono)
+
+# 12.9
+# Дан список из 20 элементов. Найти пять соседних элементов, сумма значений которых
+# максимальна.
+sum5, beg, end = 0, 0, 0
+s5 = []
+for i in s:
+    if s.index(i) < 16:
+        s5 = s[s.index(i):s.index(i)+5]
+        if sum(s5) > sum5:
+            sum5 = sum(s5)
+            beg = s.index(i)
+            end = beg + 4
+print("Пять соседних элементов, сумма значений которых максимальна: ", s[beg:end+1])
