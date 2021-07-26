@@ -33,7 +33,10 @@ try:
         print("Ошибка, конечное число диапазона должно быть больше начального")
         raise SystemExit
     M = [[randint(y, z) for i in range(a)] for j in range(b)]
-    print(*M, sep='\n')
+
 
 except ValueError:
     print("Ошибка, это не целое число")
+
+print(*M, sep='\n')
+
