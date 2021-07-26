@@ -39,4 +39,3 @@ except ValueError:
     print("Ошибка, это не целое число")
 
 print(*M, sep='\n')
-
